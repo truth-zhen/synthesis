@@ -1,15 +1,14 @@
 <template>
   <div class="navsideber">
     <el-menu
-      default-active="1-4-1"
+      :default-active="activeMenu"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       :collapse="isCollapse"
       background-color="#545c64"
       text-color="#fff"
     >
-      <el-submenu index="1">
+    <silde-bar v-for="(item,i) in permission_routes" :key="i" :item="item" :base-path="item.path"></silde-bar>
+      <!-- <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
@@ -38,33 +37,32 @@
       <el-menu-item index="4">
         <i class="el-icon-setting"></i>
         <span slot="title">导航四</span>
-      </el-menu-item>
+      </el-menu-item> -->
     </el-menu>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import SildeBar from './sidebarItem'
 export default {
   name: "navsideber",
   data() {
     return {
-      isCollapse: false
+      isCollapse: false,
+      onlyOneChild: null
     };
   },
-  mounted(){
-    console.log(this.permission_routes)
+  components: {
+    SildeBar
   },
   computed: {
     ...mapGetters([
       'permission_routes'
-    ])
-  },
-  methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    ]),
+    activeMenu() {
+      const route = this.$route
+      const { meta, path } = route
+      return path
     }
   }
 };

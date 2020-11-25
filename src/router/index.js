@@ -22,7 +22,7 @@ export const constantRoutes = [
         component: () => import("@/views/Homes/index"),
         meta: {
           title: "首页",
-          icon: "homes"
+          icon: "el-icon-s-home"
         }
       }
     ]
@@ -30,11 +30,6 @@ export const constantRoutes = [
   {
     path: "/404",
     component: () => import("@/views/404"),
-    hidden: true
-  },
-  {
-    path: "*",
-    redirect: "/404",
     hidden: true
   }
 ];
@@ -47,14 +42,14 @@ export const asyncRoutes = [
     redirect: '/permission/directive',
     meta: {
       title: "权限管理",
-      icon: "homes",
+      icon: "el-icon-paperclip",
       roles: ["admin", "editor"]
     },
     children: [
       {
         path: "directive",
         name: "设置权限",
-        component: () => import("@/views/permission/directive.vue"),
+        component: () => import("@/views/permission/directive"),
         meta: {
           title: "权限设置"
           //如果不设置角色，则表示:此页面不需要权限
@@ -65,7 +60,7 @@ export const asyncRoutes = [
         name: "超级管理",
         component: () => import("@/views/permission/admins"),
         meta: {
-          title: "超级 管理",
+          title: "超级管理",
           roles: ["admin"]
         }
       },
@@ -74,11 +69,16 @@ export const asyncRoutes = [
         name: "编辑管理",
         component: () => import("@/views/permission/editors"),
         meta: {
-          title: "编辑 管理",
+          title: "编辑管理",
           roles: ["editor"]
         }
       }
     ]
+  },
+  {
+    path: "*",
+    redirect: "/404",
+    hidden: true
   }
 ];
 const originalPush = VueRouter.prototype.push
@@ -90,7 +90,7 @@ const createRouter = () =>
   new VueRouter({
     scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes,
-    // mode: "history"
+    mode: "history"
   });
 
 const router = createRouter();

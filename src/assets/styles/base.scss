@@ -16,3 +16,15 @@ html,body,#app{
     justify-content: $hori;
     align-items: $mill;
 }
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
